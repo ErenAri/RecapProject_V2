@@ -11,7 +11,19 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            CarTest();
 
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+            foreach (var brands in brandManager.GetAll())
+            {
+                Console.WriteLine(brands.BrandName);
+            }
+
+            Console.ReadLine();
+        }
+
+        private static void CarTest()
+        {
             ICarService carService = new CarManager(new EfCarDal());
             carService.Add(new Car
             {
@@ -25,14 +37,11 @@ namespace ConsoleUI
             {
                 Console.WriteLine("Bilgiler;");
                 Console.WriteLine("******************************");
-                Console.WriteLine("Arabanın Marka ve Modeli: {0} Arabanın Yılı: {1} Günlük Ücret: {2}", car.Description, car.ModelYear, car.DailyPrice);
+                Console.WriteLine("Arabanın Marka ve Modeli: {0} Arabanın Yılı: {1} Günlük Ücret: {2}", car.Description,
+                    car.ModelYear, car.DailyPrice);
                 Console.WriteLine("******************************");
                 Console.WriteLine("Kapatmak için enter'a basın");
             }
-
-            Console.ReadLine();
-
-
         }
     }
 }
