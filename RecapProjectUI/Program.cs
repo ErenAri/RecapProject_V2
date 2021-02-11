@@ -12,14 +12,35 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             CarTest();
+            BrandTest();
 
+            CustomerManager customerManager = new CustomerManager();
+            customerManager.Add(new Customers
+            {
+                UserId = 1,
+                CompanyName = "SpaceX"
+            });
+
+            RentalManager rentalManager = new RentalManager();
+            rentalManager.Add(new Rentals
+            {
+                RentalId = 1,
+                CarId = 1,
+                CustomerId = 1,
+                RentDate = 2021,
+                ReturnDate = 2021
+            });
+
+            Console.ReadLine();
+        }
+
+        private static void BrandTest()
+        {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             foreach (var brands in brandManager.GetAll())
             {
                 Console.WriteLine(brands.BrandName);
             }
-
-            Console.ReadLine();
         }
 
         private static void CarTest()
