@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Business.Abstract;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -55,6 +56,41 @@ namespace Business.Concrete
         public void Update(Car car)
         {
             _carDal.Update(car);
+        }
+
+        IResult ICarService.Add(Car car)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult ICarService.Delete(Car car)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<Car>> ICarService.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<Car> ICarService.GetCarById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<Car>> ICarService.GetCarsByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        IDataResult<List<Car>> ICarService.GetCarsByColorId(int colorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        IResult ICarService.Update(Car car)
+        {
+            throw new NotImplementedException();
         }
     }
 }
