@@ -10,5 +10,6 @@ namespace Business.Constants
         public static string CustomerAdded = "Müşteri eklendi";
         public static string BrandAdded = "Marka eklendi";
         public static string ColorAdded = "Renk eklendi";
+        public static string ImageLimitExceded = "Fotoğraf sayısı maximuma ulaştı";
     }
 }

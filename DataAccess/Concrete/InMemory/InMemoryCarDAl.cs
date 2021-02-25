@@ -61,11 +61,21 @@ namespace DataAccess.Concrete.InMemory
             Console.WriteLine(entity.BrandId+" Id'li araba eklendi");
         }
 
+        public void AddImage(Car entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(Car entity)
         {
             Car deleteCar = _cars.SingleOrDefault(car => car.Id == car.Id);
             _cars.Remove(deleteCar);
             Console.WriteLine(entity.BrandId + " Id'li Araba silindi");
+        }
+
+        public void DeleteImage(Car entity)
+        {
+            throw new NotImplementedException();
         }
 
         public Car Get(Expression<Func<Car, bool>> filter)
@@ -89,6 +99,11 @@ namespace DataAccess.Concrete.InMemory
             Console.WriteLine(entity.BrandId+" Id'li Araba güncellendi");
 
 
+        }
+
+        public void UpdateImage(Car entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

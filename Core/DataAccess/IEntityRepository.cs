@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace Core.DataAccess
 {
@@ -14,5 +15,8 @@ namespace Core.DataAccess
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
+        void AddImage(T entity);
+        void DeleteImage(T entity);
+        void UpdateImage(T entity);
     }
 }

@@ -19,9 +19,12 @@ namespace Core.DataAccess.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
-                
-                
             }
+        }
+
+        public void AddImage(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(TEntity entity)
@@ -33,6 +36,11 @@ namespace Core.DataAccess.EntityFramework
                 context.SaveChanges();
                 
             }
+        }
+
+        public void DeleteImage(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
@@ -62,6 +70,11 @@ namespace Core.DataAccess.EntityFramework
                 context.SaveChanges();
                 
             }
+        }
+
+        public void UpdateImage(TEntity entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -6,8 +6,7 @@ using Entities.Concrete;
 
 namespace DataAccess.Abstract
 {
-    public interface ICarDAL : IEntityRepository<Car>
+    public interface ICarImageDal:IEntityRepository<CarImages>
     {
-        
     }
 }

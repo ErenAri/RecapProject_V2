@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
 using Business.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -96,6 +98,39 @@ namespace Business.Concrete
         IResult ICarService.Update(Car car)
         {
             throw new NotImplementedException();
+        }
+
+        
+        public IResult AddImage(Car carImages)
+        {
+            IResult result = BusinessRules.Run(CheckImageLimit(carImages.ImageCount));
+
+            if (result!=null)
+            {
+                return result;
+            }
+            _carDal.AddImage(carImages);
+            return new SuccessResult();
+        }
+        public IResult DeleteImage(Car car)
+        {
+            _carDal.DeleteImage(car);
+            return new SuccessResult();
+        }
+        public IResult UpdateImage(Car car)
+        {
+            _carDal.UpdateImage(car);
+            return new SuccessResult();
+        }
+
+        private IResult CheckImageLimit(int ImageCount)
+        {
+            var result = _carDal.GetAll(c => c.ImageCount == ImageCount).Count;
+            if (result >=10)
+            {
+                return new ErrorResult(Messages.ImageLimitExceded);
+            }
+            return new SuccessResult();
         }
     }
 }
