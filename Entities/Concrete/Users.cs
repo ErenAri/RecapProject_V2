@@ -6,7 +6,7 @@ using Core.Entity;
 
 namespace Entities.Concrete
 {
-    public class User:IEntity
+    public class Users:IEntity
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }

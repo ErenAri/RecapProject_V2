@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using Core.Entity;
-using Core.Entity;
 
 namespace Core.Entities.Concrete
 {

@@ -19,11 +19,11 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<Entities.Concrete.User> Register(UserForRegisterDto userForRegisterDto, string password)
+        public IDataResult<Entities.Concrete.Users> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var user = new Entities.Concrete.User
+            var users = new Entities.Concrete.Users
             {
                 Email = userForRegisterDto.Email,
                 FirstName = userForRegisterDto.FirstName,
@@ -32,24 +32,24 @@ namespace Business.Concrete
                 PasswordSalt = passwordSalt,
                 Status = true
             };
-            _userService.Add(user);
-            return new SuccessDataResult<Entities.Concrete.User>(user,Messages.LoginSuccessful);
+            _userService.Add(users);
+            return new SuccessDataResult<Entities.Concrete.Users>(users,Messages.LoginSuccessful);
         }
 
-        public IDataResult<Entities.Concrete.User> Login(UserForLoginDto userForLoginDto)
+        public IDataResult<Entities.Concrete.Users> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<Entities.Concrete.User>(Messages.UserNotFounded);
+                return new ErrorDataResult<Entities.Concrete.Users>(Messages.UserNotFounded);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<Entities.Concrete.User>(Messages.PasswordError);
+                return new ErrorDataResult<Entities.Concrete.Users>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<Entities.Concrete.User>(userToCheck,Messages.LoginSuccessful);
+            return new SuccessDataResult<Entities.Concrete.Users>(Messages.LoginSuccessful);
         }
 
         public IResult UserExists(string email)
@@ -68,7 +68,7 @@ namespace Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken, Messages.TokenCreated);
         }
 
-        public IDataResult<AccessToken> CreateAccessToken(Entities.Concrete.User user)
+        public IDataResult<AccessToken> CreateAccessToken(Entities.Concrete.Users user)
         {
             throw new System.NotImplementedException();
         }
