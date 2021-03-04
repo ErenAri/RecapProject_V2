@@ -67,5 +67,10 @@ namespace Business.Concrete
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.TokenCreated);
         }
+
+        public IDataResult<AccessToken> CreateAccessToken(Entities.Concrete.User user)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

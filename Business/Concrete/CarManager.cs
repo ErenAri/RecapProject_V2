@@ -10,6 +10,7 @@ using Core.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -58,12 +59,16 @@ namespace Business.Concrete
             return _carDal.GetAll(car => car.ColorId == colorId);
         }
 
+        [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         public void Update(Car car)
         {
             _carDal.Update(car);
         }
 
         [ValidationAspect(typeof(ProductValidator))]
+        [ValidationAspect(typeof(ProductValidator))]
+        [CacheRemoveAspect("IProductService.Get")]
         IResult ICarService.Add(Car car)
         {
             _carDal.Add(car);
@@ -80,6 +85,7 @@ namespace Business.Concrete
             throw new NotImplementedException();
         }
 
+        [CacheAspect]
         IDataResult<Car> ICarService.GetCarById(int id)
         {
             throw new NotImplementedException();
@@ -131,6 +137,11 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ImageLimitExceded);
             }
             return new SuccessResult();
+        }
+
+        public IResult AddTransactionalTest(Car car)
+        {
+            throw new NotImplementedException();
         }
     }
 }
