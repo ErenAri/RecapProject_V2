@@ -19,11 +19,11 @@ namespace Business.Concrete
             _tokenHelper = tokenHelper;
         }
 
-        public IDataResult<Entities.Concrete.Users> Register(UserForRegisterDto userForRegisterDto, string password)
+        public IDataResult<User> Register(UserForRegisterDto userForRegisterDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var users = new Entities.Concrete.Users
+            var users = new User
             {
                 Email = userForRegisterDto.Email,
                 FirstName = userForRegisterDto.FirstName,
@@ -33,23 +33,23 @@ namespace Business.Concrete
                 Status = true
             };
             _userService.Add(users);
-            return new SuccessDataResult<Entities.Concrete.Users>(users,Messages.LoginSuccessful);
+            return new SuccessDataResult<User>(users,Messages.LoginSuccessful);
         }
 
-        public IDataResult<Entities.Concrete.Users> Login(UserForLoginDto userForLoginDto)
+        public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
             if (userToCheck == null)
             {
-                return new ErrorDataResult<Entities.Concrete.Users>(Messages.UserNotFounded);
+                return new ErrorDataResult<User>(Messages.UserNotFounded);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<Entities.Concrete.Users>(Messages.PasswordError);
+                return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<Entities.Concrete.Users>(Messages.LoginSuccessful);
+            return new SuccessDataResult<User>(userToCheck,Messages.LoginSuccessful);
         }
 
         public IResult UserExists(string email)
@@ -67,10 +67,6 @@ namespace Business.Concrete
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.TokenCreated);
         }
-
-        public IDataResult<AccessToken> CreateAccessToken(Entities.Concrete.Users user)
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }
